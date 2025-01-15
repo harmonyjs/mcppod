@@ -7,6 +7,25 @@ export default defineConfig({
   plugins: [tsconfigPaths()],
   build: {
     outDir: 'dist',
+    lib: {
+      entry: 'src/index.ts',
+      formats: ['es']
+    },
+    rollupOptions: {
+      external: [
+        /^node:/,
+        /^@modelcontextprotocol\/sdk/,
+        /^node_modules/,
+        'pino',
+        'tmp',
+        'zod'
+      ],
+      output: {
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+        entryFileNames: '[name].js'
+      }
+    }
   },
   test: {
     globals: true,
