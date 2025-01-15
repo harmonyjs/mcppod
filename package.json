@@ -1,0 +1,52 @@
+{
+    "name": "mcppod",
+    "version": "0.0.1",
+    "description": "MCP Pod encapsulates the logic for setting up everything required for a MCP server and running it.",
+    "keywords": ["mcp", "anthropic", "pod", "server"],
+    "author": "Andrey Vavilov <a@vavilov.dev>",
+    "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/harmonyjs/mcppod.git"
+    },
+    "engines": {
+      "node": ">=20"
+    },
+    "type": "module",
+    "main": "dist/index.js",
+    "exports": {
+        ".": "./dist/index.js"
+    },
+    "files": ["dist", "package.json", "package-lock.json", "CONTRIBUTING.md", "LICENSE", "README.md"],
+    "scripts": {
+        "build": "tsc",
+        "start": "node dist/index.js",
+        "type-check": "tsc --noEmit",
+        "lint": "eslint \"**/*.ts\"",
+        "format": "prettier --write \"**/*.{ts,js,json,md}\"",
+        "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
+        "test": "vitest --watch=false",
+        "test:coverage": "vitest run --coverage",
+        "check": "npm run type-check && npm run lint && npm run format:check && npm run test"
+    },
+    "dependencies": {
+        "@modelcontextprotocol/sdk": "1.1.1",
+        "pino": "9.6.0",
+        "tmp": "0.2.3",
+        "zod": "3.24.1"
+    },
+    "devDependencies": {
+        "@types/node": "22.10.6",
+        "@types/prettier": "3.0.0",
+        "@typescript-eslint/eslint-plugin": "8.20.0",
+        "@typescript-eslint/parser": "8.20.0",
+        "@vitest/coverage-v8": "3.0.0-beta.3",
+        "eslint": "9.18.0",
+        "eslint-config-prettier": "10.0.1",
+        "prettier": "3.4.2",
+        "typescript": "5.7.3",
+        "vite": "6.0.7",
+        "vite-tsconfig-paths": "5.1.4",
+        "vitest": "3.0.0-beta.3"
+    }
+}
