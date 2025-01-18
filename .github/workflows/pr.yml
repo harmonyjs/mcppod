@@ -1,0 +1,20 @@
+---
+# This workflow runs whenever a pull request is opened, updated (synchronize),
+# or reopened. It ensures all PRs meet the project's quality standards
+# (lint, tests, build) before merging.
+
+name: "Pull Request Checks"
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+
+  test:
+    name: "Lint, type check, test and build"
+    uses: ./.github/workflows/shared/test.yml
+    with:
+      run-coverage: true
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

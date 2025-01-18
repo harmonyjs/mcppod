@@ -1,0 +1,105 @@
+---
+# This file defines a reusable workflow that encapsulates
+# lint, test, and type check jobs, plus optional coverage upload to Codecov
+
+name: "Test code / Reusable Workflow"
+
+on:
+  # We declare this workflow as reusable by using 'workflow_call'.
+  # This means we can't directly trigger it by push or pull_request,
+  # but other workflows can call it
+  workflow_call:
+    # Whether to run coverage or not
+    inputs:
+      run-coverage:
+        type: boolean
+        default: false
+        description: "If true, run tests with coverage and upload to Codecov."
+    secrets:
+      CODECOV_TOKEN:
+        required: false
+
+jobs:
+
+  # ----- Lint Job -----
+  lint:
+    name: "Lint"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+            fetch-depth: 0
+
+      - name: Setup Node and Cache
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+  # ----- Test Job -----
+  test:
+    name: "Test"
+    runs-on: ubuntu-latest
+    needs: [lint]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+            fetch-depth: 0
+
+      - name: Setup Node and Cache
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test
+        run: |
+          if ${{ inputs.run-coverage }}; then
+            echo "Running tests with coverage..."
+            COVERAGE_REPORTS_DIR=./coverage npm run test:coverage
+          else
+            echo "Running tests without coverage..."
+            npm run test
+          fi
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        if: ${{ inputs.run-coverage && secrets.CODECOV_TOKEN }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  # ----- Build Job -----
+  build:
+    name: "Build"
+    runs-on: ubuntu-latest
+    needs: [test]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+            fetch-depth: 0
+
+      - name: Setup Node and Cache
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
