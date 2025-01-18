@@ -33,11 +33,11 @@ export default defineConfig({
     include: ['src/**/*.{test,spec}.{js,ts}'],
     coverage: {
       provider: 'v8',
-      reporter: ['text'],
+      reporter: ['json', 'text', 'html'],
       include: ['src/**/*.ts'],
       exclude: ['src/**/*.{test,spec}.ts'],
       // @ts-ignore
-      reportsDirectory: tmp.dirSync().name,
+      reportsDirectory: process.env.COVERAGE_REPORTS_DIR ?? tmp.dirSync().name,
     },
     typecheck: {
       enabled: true,
