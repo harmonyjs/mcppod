@@ -76,7 +76,7 @@ jobs:
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
-        if: ${{ inputs.run-coverage && secrets.CODECOV_TOKEN }}
+        if: ${{ inputs.run-coverage}}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
