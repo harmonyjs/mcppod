@@ -12,7 +12,7 @@ jobs:
 
   test:
     name: "Lint, type check, test and build"
-    uses: ./.github/workflows/shared/test.yml
+    uses: ./.github/workflows/test.yml
     with:
       run-coverage: true
     secrets:
