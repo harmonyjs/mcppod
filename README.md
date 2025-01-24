@@ -3,9 +3,11 @@
 </p>
 <br/>
 <p align="center">
-    <a href="https://codecov.io/gh/harmonyjs/mcppod"><img src="https://codecov.io/gh/harmonyjs/mcppod/graph/badge.svg?token=R5LQTGG4A2"/></a>
+    <a href="https://github.com/harmonyjs/mcppod/actions/workflows/dev.yml"><img src="https://github.com/harmonyjs/mcppod/actions/workflows/dev.yml/badge.svg" alt="Dev CI"/></a>
     &nbsp;
-    <a href="https://github.com/harmonyjs/mcppod/blob/main/LICENSE"><img alt="GitHub License" src="https://img.shields.io/github/license/harmonyjs/mcppod"></a>
+    <a href="https://codecov.io/gh/harmonyjs/mcppod"><img src="https://codecov.io/gh/harmonyjs/mcppod/graph/badge.svg?token=R5LQTGG4A2" alt="Code Coverage"/></a>
+    &nbsp;
+    <a href="https://github.com/harmonyjs/mcppod/blob/main/LICENSE"><img src="https://img.shields.io/github/license/harmonyjs/mcppod" alt="GitHub License"/></a>
 </p>
 
 &nbsp;
